@@ -8,6 +8,8 @@ use Tests\TestCase;
 
 class UsersTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * A basic test example.
      *
@@ -15,7 +17,9 @@ class UsersTest extends TestCase
      */
     public function test_a_user_requires_a_role()
     {
-        $this->actingAs(User::factory()->create());
+        $this->actingAs(User::factory()->create([
+            'role' => 'admin',
+        ]));
 
         $attributes = User::factory()->raw([
             'role' => '',
