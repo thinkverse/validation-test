@@ -4,17 +4,14 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class UsersTest extends TestCase
+class UserTest extends TestCase
 {
+    use WithFaker;
     use RefreshDatabase;
 
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
     public function test_a_user_requires_a_role()
     {
         $this->actingAs(User::factory()->create([
@@ -27,5 +24,19 @@ class UsersTest extends TestCase
 
         $this->post('/users', $attributes)
             ->assertSessionHasErrors('role');
+    }
+
+    public function test_guests_cannot_view_users()
+    {
+        $this->get('/users')->assertRedirect('login');
+    }
+
+    public function test_only_authenticated_admins_can_view_users()
+    {
+        $this->actingAs(User::factory()->create([
+            'role' => 'user',
+        ]));
+
+        $this->get('/users')->assertRedirect();
     }
 }
