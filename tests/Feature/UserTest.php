@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -15,7 +16,7 @@ class UserTest extends TestCase
     public function test_a_user_requires_a_role()
     {
         $this->actingAs(User::factory()->create([
-            'role' => 'admin',
+            'role' => Role::ADMIN,
         ]));
 
         $attributes = User::factory()->raw([
@@ -34,7 +35,7 @@ class UserTest extends TestCase
     public function test_only_authenticated_admins_can_view_users()
     {
         $user = User::factory()->create([
-            'role' => 'user',
+            'role' => Role::USER,
         ]);
 
         $this->actingAs($user)
@@ -42,7 +43,7 @@ class UserTest extends TestCase
             ->assertForbidden();
 
         $user->update([
-            'role' => 'admin',
+            'role' => Role::ADMIN,
         ]);
 
         $this->actingAs($user)
