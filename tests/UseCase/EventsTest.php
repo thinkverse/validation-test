@@ -13,7 +13,7 @@ class EventsTest extends TestCase
     {
         $this->post('/register', [
             'name' => 'Test User',
-            'email' => $email = 'test@example.com',
+            'email' => 'test@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
         ])->assertRedirect('/dashboard');
