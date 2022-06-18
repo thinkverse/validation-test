@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class EnsureUserHasRole
 {
@@ -18,10 +19,8 @@ class EnsureUserHasRole
      */
     public function handle(Request $request, Closure $next, ...$roles)
     {
-        if (in_array($request->user()->role, $roles)) {
-            return $next($request);
-        }
+        abort_unless(in_array($request->user()->role, $roles), Response::HTTP_UNAUTHORIZED, 'You are not authorized to access this resource.');
 
-        return redirect()->back();
+        return $next($request);
     }
 }

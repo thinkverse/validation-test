@@ -38,7 +38,7 @@ class UserTest extends TestCase
         ]);
 
         $this->actingAs($user)
-            ->get('/users')->assertRedirect();
+            ->get('/users')->assertUnauthorized();
 
         $user->update([
             'role' => 'admin',
