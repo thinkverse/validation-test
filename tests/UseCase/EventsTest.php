@@ -9,7 +9,7 @@ class EventsTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_newly_registerd_users_can_view_events()
+    public function test_newly_registered_users_can_view_events()
     {
         $this->post('/register', [
             'name' => 'Test User',
