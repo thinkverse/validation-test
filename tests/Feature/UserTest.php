@@ -39,7 +39,7 @@ class UserTest extends TestCase
 
         $this->actingAs($user)
             ->get('/users')
-            ->assertUnauthorized();
+            ->assertForbidden();
 
         $user->update([
             'role' => 'admin',

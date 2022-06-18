@@ -19,7 +19,7 @@ class EnsureUserHasRole
      */
     public function handle(Request $request, Closure $next, ...$roles)
     {
-        abort_unless(in_array($request->user()->role, $roles), Response::HTTP_UNAUTHORIZED, 'You are not authorized to access this resource.');
+        abort_unless(in_array($request->user()->role, $roles), Response::HTTP_FORBIDDEN, 'You are forbidden from accessing this resource.');
 
         return $next($request);
     }
