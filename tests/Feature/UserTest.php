@@ -38,13 +38,15 @@ class UserTest extends TestCase
         ]);
 
         $this->actingAs($user)
-            ->get('/users')->assertUnauthorized();
+            ->get('/users')
+            ->assertUnauthorized();
 
         $user->update([
             'role' => 'admin',
         ]);
 
         $this->actingAs($user)
-            ->get('/users')->assertOk();
+            ->get('/users')
+            ->assertOk();
     }
 }
