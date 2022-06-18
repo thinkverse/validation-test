@@ -12,6 +12,8 @@ class EnsureUserHasRole
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
+     * @param  array  $roles
+     *
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     public function handle(Request $request, Closure $next, ...$roles)
@@ -20,6 +22,6 @@ class EnsureUserHasRole
             return $next($request);
         }
 
-        return redirect('/');
+        return redirect()->back();
     }
 }
