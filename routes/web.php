@@ -22,6 +22,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::middleware(['auth', 'role:admin,user'])->group(function () {
+    Route::view('/events', 'events')->name('events');
+});
+
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/users', [UsersController::class, 'index']);
     Route::post('/users', [UsersController::class, 'store']);
