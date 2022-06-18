@@ -33,10 +33,18 @@ class UserTest extends TestCase
 
     public function test_only_authenticated_admins_can_view_users()
     {
-        $this->actingAs(User::factory()->create([
+        $user = User::factory()->create([
             'role' => 'user',
-        ]));
+        ]);
 
-        $this->get('/users')->assertRedirect();
+        $this->actingAs($user)
+            ->get('/users')->assertRedirect();
+
+        $user->update([
+            'role' => 'admin',
+        ]);
+
+        $this->actingAs($user)
+            ->get('/users')->assertOk();
     }
 }
