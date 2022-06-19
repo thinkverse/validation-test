@@ -10,7 +10,7 @@ enum Role: string
     /**
      * Check if the given role is in the list of roles.
      *
-     * @param  array<int, string|enum-string>  $roles
+     * @param  array<int, string|Role>  $roles
      * @return  bool
      */
     public function in(array $roles): bool
