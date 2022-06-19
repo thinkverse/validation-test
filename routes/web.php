@@ -28,8 +28,7 @@ Route::middleware(['auth', 'role:admin,user'])->group(function () {
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::get('/users', [UsersController::class, 'index']);
-    Route::post('/users', [UsersController::class, 'store']);
+    Route::resource('/users', UsersController::class)->only(['index', 'show', 'create', 'store']);
 
     Route::get('/roles', ViewRolesController::class)->name('roles');
 });

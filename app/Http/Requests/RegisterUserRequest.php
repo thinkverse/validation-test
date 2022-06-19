@@ -2,10 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
+use App\Enums\Role;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules;
 
-class StoreUserRequest extends FormRequest
+class RegisterUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +27,10 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'role' => 'required',
-            'name' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed',
+            'role' => ['required', new Rules\Enum(Role::class)],
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
     }
 
@@ -42,6 +43,7 @@ class StoreUserRequest extends FormRequest
     {
         return [
             'role.required' => 'A role is required',
+            'role.enum' => 'The role must be a valid role',
             'name.required' => 'A name is required',
             'email.email' => 'The email is not in a valid format',
             'email.unique' => 'There is already a user with that email address',

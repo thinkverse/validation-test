@@ -19,6 +19,9 @@
                         {{ __('Events') }}
                     </x-nav-link>
                     @admin
+                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                        {{ __('Users') }}
+                    </x-nav-link>
                     <x-nav-link :href="route('roles')" :active="request()->routeIs('roles')">
                         {{ __('Roles') }}
                     </x-nav-link>
@@ -78,6 +81,9 @@
                 {{ __('Events') }}
             </x-responsive-nav-link>
             @admin
+            <x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.index')">
+                {{ __('Users') }}
+            </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('roles')" :active="request()->routeIs('roles')">
                 {{ __('Roles') }}
             </x-responsive-nav-link>
