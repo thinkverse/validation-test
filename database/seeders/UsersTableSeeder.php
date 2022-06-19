@@ -23,5 +23,9 @@ class UsersTableSeeder extends Seeder
                     'role'  => Role::ADMIN,
                 ]);
             });
+
+        User::factory()
+            ->count(10)
+            ->create();
     }
 }
