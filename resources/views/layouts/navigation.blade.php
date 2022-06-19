@@ -18,6 +18,11 @@
                     <x-nav-link :href="route('events')" :active="request()->routeIs('events')">
                         {{ __('Events') }}
                     </x-nav-link>
+                    @admin
+                    <x-nav-link :href="route('roles')" :active="request()->routeIs('roles')">
+                        {{ __('Roles') }}
+                    </x-nav-link>
+                    @endadmin
                 </div>
             </div>
 
@@ -72,6 +77,11 @@
             <x-responsive-nav-link :href="route('events')" :active="request()->routeIs('events')">
                 {{ __('Events') }}
             </x-responsive-nav-link>
+            @admin
+            <x-responsive-nav-link :href="route('roles')" :active="request()->routeIs('roles')">
+                {{ __('Roles') }}
+            </x-responsive-nav-link>
+            @endadmin
         </div>
 
         <!-- Responsive Settings Options -->

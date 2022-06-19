@@ -10,12 +10,12 @@ enum Role: string
     /**
      * Check if the given role is in the list of roles.
      *
-     * @param  array<int, string>  $roles
+     * @param  array<int, string|enum-string>  $roles
      * @return  bool
      */
-    public function in_list(array $roles): bool
+    public function in(array $roles): bool
     {
-        return in_array($this->value, $roles);
+        return in_array($this->value, array_map(fn ($role) => $this->unpack($role), $roles));
     }
 
     /**
@@ -26,6 +26,21 @@ enum Role: string
      */
     public function is(string|Role $role): bool
     {
-        return $this->value === is_string($role) ? $role : $role->value;
+        return $this->value === $this->unpack($role);
+    }
+
+    /**
+     * Unpack a role from a string or enum.
+     *
+     * @param  string|Role  $role
+     * @return  string
+     */
+    protected function unpack(string|Role $role): string
+    {
+        if ($role instanceof Role) {
+            $role = $role->value;
+        }
+
+        return $role;
     }
 }

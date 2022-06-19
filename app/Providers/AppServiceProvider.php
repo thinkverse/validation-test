@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Enums\Role;
+use Blade;
 use Illuminate\Support\ServiceProvider;
+use Log;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +26,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::if('admin', function () {
+            return auth()->check() && auth()->user()->role->is(Role::ADMIN);
+        });
+
+        Blade::if('role', function (...$roles) {
+            return auth()->check() && auth()->user()->role->in($roles);
+        });
     }
 }
