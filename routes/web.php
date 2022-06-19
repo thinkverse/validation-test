@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\UsersController;
-use App\Http\Controllers\ViewRolesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,8 +28,6 @@ Route::middleware(['auth', 'role:admin,user'])->group(function () {
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('/users', UsersController::class)->only(['index', 'show', 'create', 'store']);
-
-    Route::get('/roles', ViewRolesController::class)->name('roles');
 });
 
 require __DIR__.'/auth.php';
