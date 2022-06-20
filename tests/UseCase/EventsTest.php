@@ -18,9 +18,9 @@ class EventsTest extends TestCase
 
         $this->actingAs($admin)
             ->post('/users', [
-                'name' => 'Test User',
+                'name' => $name = 'Test User',
                 'email' => $email = 'test@example.com',
-                'password' => 'password',
+                'password' => $password = 'password',
                 'password_confirmation' => 'password',
                 'role' => Role::USER->value,
             ]);
@@ -31,11 +31,11 @@ class EventsTest extends TestCase
 
         $this->post('/login', [
             'email' => $email,
-            'password' => 'password',
+            'password' => $password,
         ])->assertRedirect(RouteServiceProvider::HOME);
 
         $this->get('/events')
             ->assertOk()
-            ->assertSee('Test User');
+            ->assertSee($name);
     }
 }
