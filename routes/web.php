@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UsersController;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,15 +18,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->middleware('guest');
 
-Route::middleware(['auth', 'role:admin,user'])->group(function () {
-    Route::view('/dashboard', 'dashboard')->name('dashboard');
-    Route::view('/events', 'events')->name('events');
+Route::middleware('auth')->group(function (Router $router) {
+    $router->middleware('role:admin,user')->group(function (Router $router) {
+        $router->view('/dashboard', 'dashboard')->name('dashboard');
+        $router->view('/events', 'events')->name('events');
 
-    Route::get('/u/{user:username}', UserProfileController::class)->name('users.profile');
+        $router->get('/u/{user:username}', UserProfileController::class)->name('users.profile');
+    });
+
+    $router->middleware('role:admin')->group(function (Router $router) {
+        $router->resource('/users', UsersController::class)->only(['index', 'show', 'create', 'store']);
+    });
 });
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('/users', UsersController::class)->only(['index', 'show', 'create', 'store']);
-});
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
