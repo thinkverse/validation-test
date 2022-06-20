@@ -43,7 +43,7 @@ Route::middleware('auth')
             ->middleware(['signed', 'throttle:6,1'])
             ->name('verification.verify');
 
-        $router->post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+        $router->post('email/verification-notification', EmailVerificationNotificationController::class)
             ->middleware('throttle:6,1')
             ->name('verification.send');
 
