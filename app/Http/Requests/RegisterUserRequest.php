@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Enums\Role;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rules;
 
@@ -15,8 +16,7 @@ class RegisterUserRequest extends FormRequest
      */
     public function authorize()
     {
-        // Gate defined in app/Providers/AuthServiceProvider.php
-        return $this->user()->can('create-user');
+        return $this->user()->can('create', User::class);
     }
 
     /**

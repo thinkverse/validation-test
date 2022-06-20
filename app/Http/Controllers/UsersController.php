@@ -12,18 +12,24 @@ class UsersController extends Controller
 {
     public function index()
     {
+        $this->authorize('viewAny', User::class);
+
         return view('users.index')
             ->with('users', User::paginate(10));
     }
 
     public function create()
     {
+        $this->authorize('create', User::class);
+
         return view('users.create')
             ->with('roles', Role::cases());
     }
 
     public function store(RegisterUserRequest $request)
     {
+        $this->authorize('create', User::class);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -39,6 +45,8 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
+        $this->authorize('view', [User::class, $user]);
+
         return view('users.show')
             ->with('user', $user);
     }
