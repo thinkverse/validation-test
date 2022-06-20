@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,16 +15,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::view('/', 'welcome')->middleware('guest');
 
 Route::middleware(['auth', 'role:admin,user'])->group(function () {
+    Route::view('/dashboard', 'dashboard')->name('dashboard');
     Route::view('/events', 'events')->name('events');
+
+    Route::get('/u/{user}', UserProfileController::class)->name('users.profile');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

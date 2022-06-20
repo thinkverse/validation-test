@@ -46,6 +46,12 @@
                     </x-slot>
 
                     <x-slot name="content">
+                        <x-dropdown-link :href="route('users.profile', ['user' => auth()->user()])">
+                            {{ __('Profile') }}
+                        </x-dropdown-link>
+
+                        <div class="border-t border-gray-200 my-1"></div>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
