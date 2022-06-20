@@ -19,6 +19,7 @@ class EventsTest extends TestCase
         $this->actingAs($admin)
             ->post('/users', [
                 'name' => $name = 'Test User',
+                'username' => 'test-user',
                 'email' => $email = 'test@example.com',
                 'password' => $password = 'password',
                 'password_confirmation' => 'password',

@@ -28,6 +28,13 @@
                         </li>
                         <li>
                             <div class="font-medium text-gray-900">
+                                {{ __('Username') }}
+                            </div>
+                            <div class=" text-gray-500">
+                                {{ $user->username }}
+                            </div>
+                        <li>
+                            <div class="font-medium text-gray-900">
                                 {{ __('Email') }}
                             </div>
                             <div class=" text-gray-500">

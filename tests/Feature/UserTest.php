@@ -52,6 +52,7 @@ class UserTest extends TestCase
         $this->actingAs($user)
             ->post('/users', [
                 'name' => 'Test User',
+                'username' => 'test-user',
                 'email' => 'test@example.com',
                 'password' => 'password',
                 'password_confirmation' => 'password',
@@ -66,6 +67,7 @@ class UserTest extends TestCase
         $this->actingAs($user)
             ->post('/users', [
                 'name' => 'Test User',
+                'username' => 'test-user',
                 'email' => 'test@example.com',
                 'password' => 'password',
                 'password_confirmation' => 'password',
@@ -75,6 +77,7 @@ class UserTest extends TestCase
 
         $this->assertDatabaseHas('users', [
             'name' => 'Test User',
+            'username' => 'test-user',
             'email' => 'test@example.com',
             'role' => Role::USER->value,
         ]);

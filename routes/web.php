@@ -21,7 +21,7 @@ Route::middleware(['auth', 'role:admin,user'])->group(function () {
     Route::view('/dashboard', 'dashboard')->name('dashboard');
     Route::view('/events', 'events')->name('events');
 
-    Route::get('/u/{user}', UserProfileController::class)->name('users.profile');
+    Route::get('/u/{user:username}', UserProfileController::class)->name('users.profile');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

@@ -19,6 +19,7 @@ class UsersTableSeeder extends Seeder
             ->when(User::count() === 0, function ($factory) {
                 $factory->create([
                     'name'  => 'Admin',
+                    'username' => 'admin',
                     'email' => 'admin@admin.com',
                     'role'  => Role::ADMIN,
                 ]);
