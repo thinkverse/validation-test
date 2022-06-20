@@ -82,4 +82,22 @@ class UserTest extends TestCase
             'role' => Role::USER->value,
         ]);
     }
+
+    public function test_only_admins_can_view_admin_profiles()
+    {
+        $admin = User::factory()->admin()->create();
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->get(route('users.profile', $admin))
+            ->assertForbidden();
+
+        $user->update([
+            'role' => Role::ADMIN,
+        ]);
+
+        $this->actingAs($user)
+            ->get(route('users.profile', $admin))
+            ->assertOk();
+    }
 }
