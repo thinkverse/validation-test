@@ -23,7 +23,8 @@ class UsersTableSeeder extends Seeder
                     'role'  => Role::ADMIN,
                 ]);
             })
-            ->count(10)
-            ->create();
+            ->when(app()->environment('local'), function ($factory) {
+                $factory->count(10)->create();
+            });
     }
 }
