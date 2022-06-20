@@ -22,9 +22,7 @@ class UsersTableSeeder extends Seeder
                     'email' => 'admin@admin.com',
                     'role'  => Role::ADMIN,
                 ]);
-            });
-
-        User::factory()
+            })
             ->count(10)
             ->create();
     }
