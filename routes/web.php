@@ -18,19 +18,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->middleware('guest');
 
-Route::middleware('auth')
-    ->group(function (Router $router) {
-        $router->middleware('role:admin,user')
-            ->group(function (Router $router) {
-                $router->view('/dashboard', 'dashboard')->name('dashboard');
-                $router->view('/events', 'events')->name('events');
+Route::middleware('auth')->group(function (Router $router) {
+    $router->middleware('role:admin,user')->group(function (Router $router) {
+        $router->view('/dashboard', 'dashboard')->name('dashboard');
+        $router->view('/events', 'events')->name('events');
 
-                $router->get('/u/{user:username}', UserProfileController::class)->name('users.profile');
-            });
-
-        $router->middleware('role:admin')
-            ->group(function (Router $router) {
-                $router->resource('/users', UsersController::class)
-                    ->only(['index', 'show', 'create', 'store']);
-            });
+        $router->get('/u/{user:username}', UserProfileController::class)->name('users.profile');
     });
+
+    $router->middleware('role:admin')->group(function (Router $router) {
+        $router->resource('/users', UsersController::class)
+            ->only(['index', 'show', 'create', 'store']);
+    });
+});
