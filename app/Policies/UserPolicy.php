@@ -30,7 +30,11 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return $user->role->is(Role::ADMIN)
+        if ($user->role->is(Role::USER) && $model->role->is(Role::ADMIN)) {
+            return false;
+        }
+
+        return $user->role->in([Role::ADMIN, Role::USER])
             || $user->id === $model->id;
     }
 
